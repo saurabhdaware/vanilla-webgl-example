@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Parcel Sandbox</title>
+  <title>WebGL Example</title>
   <meta charset="UTF-8" />
 </head>
 <body>
@@ -67,8 +67,19 @@
       };
 
       const buffers = initBuffers(gl);
+      var then = 0;
 
-      drawScene(gl, programInfo, buffers);
+      // Draw the scene repeatedly
+      function render(now) {
+        now *= 0.001;  // convert to seconds
+        const deltaTime = now - then;
+        then = now;
+
+        drawScene(gl, programInfo, buffers, deltaTime);
+
+        requestAnimationFrame(render);
+      }
+      requestAnimationFrame(render);
     }
 
     window.onload = init;
