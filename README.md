@@ -4,4 +4,4 @@ Hey everyone! So I am learning WebGL from [MDN WebGL Tutorial](https://developer
 
 You can check out the commits to see the step-by-step progress.
 
-**Live Preview:** https://saurabhdaware.github.io/vanilla-webgl-example/
+**Live Preview:** https://vanilla-webgl-example.netlify.com/
