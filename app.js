@@ -2,10 +2,12 @@ import {
   drawScene, 
   initBuffers, 
   initShaderProgram,
+  loadTexture,
   vsSource,
   fsSource
 } from './webgl';
 
+import image from './tex.jpeg';
 
 function init() {
   const canvas = document.getElementById("game");
@@ -22,29 +24,20 @@ function init() {
   const programInfo = {
     program: shaderProgram,
     attribLocations: {
-      vertexPosition: gl.getAttribLocation(
-        shaderProgram,
-        "aVertexPosition"
-      ),
-      vertexColor: gl.getAttribLocation(
-        shaderProgram,
-        "aVertexColor"
-      )
+      vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
+      textureCoord: gl.getAttribLocation(shaderProgram, 'aTextureCoord'),
     },
     uniformLocations: {
-      projectionMatrix: gl.getUniformLocation(
-        shaderProgram,
-        "uProjectionMatrix"
-      ),
-      modelViewMatrix: gl.getUniformLocation(
-        shaderProgram,
-        "uModelViewMatrix"
-      )
-    }
+      projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
+      modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
+      uSampler: gl.getUniformLocation(shaderProgram, 'uSampler'),
+    },
   };
 
   const buffers = initBuffers(gl);
   var then = 0;
+
+  const texture = loadTexture(gl, image);
 
   // Draw the scene repeatedly
   function render(now) {
@@ -52,7 +45,7 @@ function init() {
     const deltaTime = now - then;
     then = now;
 
-    drawScene(gl, programInfo, buffers, deltaTime);
+    drawScene(gl, programInfo, buffers, texture, deltaTime);
 
     requestAnimationFrame(render);
   }
